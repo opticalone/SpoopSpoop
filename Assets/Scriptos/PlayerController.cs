@@ -44,6 +44,9 @@ public class PlayerController : MonoBehaviour
 		//aply rot
 		motor.Rot(_rot);
 
+
+
+
 		//calculate CAMERA rotation as 3D vector
 		float _xRot = Input.GetAxisRaw ("Mouse Y");
 
