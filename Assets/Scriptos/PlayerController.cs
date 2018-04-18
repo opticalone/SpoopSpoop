@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-
+[RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(ConfigurableJoint))]
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerController : MonoBehaviour
@@ -15,36 +15,44 @@ public class PlayerController : MonoBehaviour
 	private float thrusterForce = 1000f;
 
 	[Header(" J O I N T -- O P T I O N S ")]
-	[SerializeField]
-	private JointDriveMode jointMode;
+
 	[SerializeField]
 	private float jointSpring = 40;
 	[SerializeField]
 	private float jointMaxForce = 80;
 
 
+
+	//component cache
 	private PlayerMotor motor;
 	private ConfigurableJoint joint;
+	private Animator animator;
+
 
 	void Start()
 	{
 		motor = GetComponent<PlayerMotor> ();
 		joint = GetComponent<ConfigurableJoint> ();
 		SetJointSettings (jointSpring);
+		animator = GetComponent<Animator> ();
 	}
 
 	void Update()
 	{
 		//Calc movement
 
-		float _xMove = Input.GetAxisRaw ("Horizontal");
-		float _zMove = Input.GetAxisRaw ("Vertical");
+		float _xMove = Input.GetAxis("Horizontal");
+		float _zMove = Input.GetAxis("Vertical");
 
 		Vector3 _moveHoriz = transform.right * _xMove;
 		Vector3 _moveVert = transform.forward * _zMove;
 
 		//final movment vectors
-		Vector3 _velocity = (_moveHoriz + _moveVert).normalized * speed;
+		Vector3 _velocity = (_moveHoriz + _moveVert) * speed;
+
+		//animate movement
+
+		animator.SetFloat ("ForwardVelocity", _zMove);
 
 		//apply movement :)
 
@@ -96,7 +104,7 @@ public class PlayerController : MonoBehaviour
 
 		joint.yDrive = new JointDrive
 		{
-			mode = jointMode, 
+		 
 			positionSpring = _jointSpring, 
 			maximumForce = jointMaxForce 
 		};

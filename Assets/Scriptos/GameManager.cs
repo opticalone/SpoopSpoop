@@ -3,6 +3,25 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour 
 {
+	public static GameManager instance;
+
+	public MatchSettings matchSettings;
+
+	void Awake()
+	{
+		if (instance != null) {
+		
+			Debug.LogError ("too many managerr");
+		} else {
+			instance = this;
+		}
+
+	}
+
+
+
+	#region Player Tracking
+
 
 	private const string PLAYER_ID_PREFIX = "Player ";
 	private static Dictionary<string , PlayerManager> players = new Dictionary<string , PlayerManager>();
@@ -25,8 +44,8 @@ public class GameManager : MonoBehaviour
 
 	//void ONGUI()
 	//{
-//		GUILayout.BeginArea (new Rect (200,200,200,500));
-//		GUILayout.BeginVertical ();
+	//		GUILayout.BeginArea (new Rect (200,200,200,500));
+	//		GUILayout.BeginVertical ();
 	//
 	//	foreach (string _playerID in players.Keys)
 	//	{
@@ -36,4 +55,8 @@ public class GameManager : MonoBehaviour
 	//	GUILayout.EndVertical ();
 	//	GUILayout.EndArea ();
 	//}
+	#endregion
+
+
+
 }

@@ -1,24 +1,36 @@
 ﻿
 using UnityEngine;
 using UnityEngine.Networking;
+using System.Collections;
+
 public class PlayerManager : NetworkBehaviour 
 {
+
+
 	[SyncVar]
 	private bool _isDead = false;
+
 	public bool isDead 
 	{
 		get{ return _isDead;}
 		protected set {_isDead = value; }
 	}
 
+
+
 	[SerializeField]
 	private int maxHealth = 100;
 
 	[SyncVar]
 	private int currentHealth;
+
 	[SerializeField]
 	private Behaviour[] disableOnDeath;
 	private bool[] wasEnabled;
+
+
+
+
 
 	public void Setup()
 	{
@@ -32,6 +44,21 @@ public class PlayerManager : NetworkBehaviour
 		SetDefaults ();
 
 	}
+
+	/*
+	void Update()
+	{
+		if (!isLocalPlayer) 
+		{
+			return;
+		}
+		if (Input.GetKeyDown (KeyCode.K)) 
+		{
+		
+			RpctakeDamage (100);
+		}
+	}
+	*/
 
 	[ClientRpc]
 	public void RpctakeDamage(int _amount)
@@ -55,13 +82,35 @@ public class PlayerManager : NetworkBehaviour
 	private void Die()
 	{
 		isDead = true;
-		//disable components on player object
+
+		for (int i = 0; i <disableOnDeath.Length; i++)
+		{
+			disableOnDeath [i].enabled = false;
+		}
+
+		Collider _col = GetComponent<Collider> ();
+		if (_col != null)
+		{
+			_col.enabled = true;
+		}
 
 		Debug.Log (transform.name + " IS DEAD");
 
-		//call respawn method
+		StartCoroutine (Respawn ());
 
 	}
+
+	IEnumerator Respawn()
+	{
+		Debug.Log (GameManager.instance.matchSettings.respawnTime);
+		yield return new WaitForSeconds(GameManager.instance.matchSettings.respawnTime);
+
+		SetDefaults();
+		Transform _spawnPoint = NetworkManager.singleton.GetStartPosition();
+		transform.position = _spawnPoint.position;
+		transform.rotation = _spawnPoint.rotation;
+	}
+
 
 	public void SetDefaults()
 	{
@@ -73,5 +122,13 @@ public class PlayerManager : NetworkBehaviour
 		{
 			disableOnDeath [i].enabled = wasEnabled [i];	
 		}
+
+
+		Collider _col = GetComponent<Collider> ();
+		if (_col != null)
+		{
+			_col.enabled = true;
+		}
+
 	}
 }
