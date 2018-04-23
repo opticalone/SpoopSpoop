@@ -2,11 +2,13 @@
 using UnityEngine.Networking;
 using UnityEngine;
 
+
+[RequireComponent(typeof(WeaponManager))]
 public class PlayerShoot : NetworkBehaviour 
 {
+	
 	private const string PLAYERTAG = "Player";
 
-	public PLayerWeapon weapon;
 
 
 	[SerializeField]
@@ -15,37 +17,100 @@ public class PlayerShoot : NetworkBehaviour
 	[SerializeField]
 	private LayerMask mask;
 
+
+	private PLayerWeapon currentWeapon;
+
+	private WeaponManager weaponManager;
+
 	void Start()
 	{
 		if (cam == null) {
 			Debug.Log("PLAYERSHOOT: no camera ref");
 			this.enabled = false;
 		}
-		cam = GetComponentInChildren<Camera> ();
-
+		weaponManager = GetComponent<WeaponManager>();
+	
 	}
+
 	void Update()
 	{
-		
+		currentWeapon = weaponManager.GetCurrentWeapon ();
 
-		if (Input.GetButtonDown ("Fire1")) 
+		if (currentWeapon.fireRate <= 0f)
 		{
-			Shoot ();
+			if (Input.GetButtonDown ("Fire1"))
+			{
+				Shoot ();
+			}
+		}
+		else 
+		{
+			if (Input.GetButtonDown ("Fire1")) 
+			{
+				InvokeRepeating ("Shoot", 0f, 1f / currentWeapon.fireRate);
+			} 
+			else if (Input.GetButtonUp ("Fire1"))
+			{
+				CancelInvoke("Shoot");
+			}
 		}
 	}
+	//is called on server when player shoots
+	[Command]
+	void CmdOnShoot()
+	{
+		RpcDoShootEffect();
+	}
+
+
+	//is called on all clients when need to do shoot effect
+	[ClientRpc]
+	void RpcDoShootEffect()
+	{
+		weaponManager.GetCurrentGraphics().mFlash.Play();
+	}
+	//is called on server when hit
+	//takes in hit location and normal of the surface
+	[Command]
+	void CmdOnHit(Vector3 _pos, Vector3 _normal)
+	{
+		RpcDoHitEffect (_pos, _normal);
+	}
+	//is called on all clients/ spawn in effect
+	[ClientRpc]
+	void RpcDoHitEffect(Vector3 _pos, Vector3 _normal)
+	{
+		
+		GameObject _hitEffect = (GameObject)Instantiate (weaponManager.GetCurrentGraphics ().hitEffectPrefab, _pos, Quaternion.LookRotation (_normal));
+		//Destroy (_hitEffect, 6f);
+	}
+
+
+
 
 	[Client]
 	void Shoot()
 	{
+		if (!isLocalPlayer)
+		{
+			return;
+		}
+		//we are shooting, call on shoot method on server
+		CmdOnShoot ();
 		RaycastHit _hit;
-		if (Physics.Raycast(cam.transform.position, cam.transform.forward, out _hit, weapon.range, mask))
+		if (Physics.Raycast(cam.transform.position, cam.transform.forward, out _hit, currentWeapon.range, mask))
 		{
 			if (_hit.collider.gameObject.tag == PLAYERTAG) 
 			{
-				CmdPlayerShot (_hit.collider.name, weapon.damage);
+				CmdPlayerShot (_hit.collider.name, currentWeapon.damage);
 
 			}
-			Debug.DrawRay (cam.transform.position,cam.transform.forward * 100, Color.green );
+
+			//hit effect
+
+			CmdOnHit (_hit.point, _hit.normal);
+
+			Debug.DrawRay (cam.transform.position,cam.transform.forward * 200, Color.green );
 			Debug.Log ("we hit" + _hit.collider.name);
 			//hit something
 		}

@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.Networking;
 [RequireComponent(typeof(PlayerManager))]
+
+
 public class PlayerSetup : NetworkBehaviour 
 { 
 
@@ -24,6 +26,7 @@ public class PlayerSetup : NetworkBehaviour
 
 	void Start()
 	{
+		
 		
 		if (!isLocalPlayer) 
 		{

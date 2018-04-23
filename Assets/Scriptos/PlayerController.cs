@@ -2,6 +2,8 @@
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(ConfigurableJoint))]
 [RequireComponent(typeof(Rigidbody))]
+
+
 public class PlayerController : MonoBehaviour
 
 {
