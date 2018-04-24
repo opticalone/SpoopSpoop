@@ -82,7 +82,7 @@ public class PlayerShoot : NetworkBehaviour
 	{
 		
 		GameObject _hitEffect = (GameObject)Instantiate (weaponManager.GetCurrentGraphics ().hitEffectPrefab, _pos, Quaternion.LookRotation (_normal));
-		//Destroy (_hitEffect, 6f);
+		Destroy (_hitEffect, 6f);
 	}
 
 

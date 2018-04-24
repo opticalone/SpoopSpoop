@@ -2448,7 +2448,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_TransformSyncMode: 3
-  m_SendInterval: 0.1
+  m_SendInterval: 0.06666667
   m_SyncRotationAxis: 2
   m_RotationSyncCompression: 0
   m_SyncSpin: 0
@@ -2527,9 +2527,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d24070373f66b2459e8b39413672d82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 30
-  lookSense: 4
+  speed: 40
+  lookSense: 2
   thrusterForce: 500
+  thrusterBurnSpeed: 3
+  thrusterFuelRegionSpeed: 1
   jointSpring: 60
   jointMaxForce: 180
 --- !u!114 &114801609620019594

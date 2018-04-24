@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Networking;
 [RequireComponent(typeof(PlayerManager))]
-
+[RequireComponent(typeof(PlayerController))]
 
 public class PlayerSetup : NetworkBehaviour 
 { 
@@ -49,10 +49,23 @@ public class PlayerSetup : NetworkBehaviour
 
 			playerUIinstance = Instantiate (playerUIprefab);
 			playerUIinstance.name = playerUIprefab.name;
+			PlayerUI ui = playerUIinstance.GetComponent<PlayerUI> ();
+			if(ui == null)
+				Debug.LogError("NO PLAYERUI PREFAB");
+			ui.SetController (GetComponent<PlayerController> ());
+			
 		}
 
 		GetComponent<PlayerManager>().Setup ();
 	}
+
+
+
+
+
+
+
+
 	void SetLayerRecursively(GameObject obj, int newLayer)
 	{
 		obj.layer = newLayer;
@@ -64,6 +77,12 @@ public class PlayerSetup : NetworkBehaviour
 		}
 	}
 
+
+
+
+
+
+
 	public override void OnStartClient()
 	{
 		base.OnStartClient ();
@@ -74,17 +93,32 @@ public class PlayerSetup : NetworkBehaviour
 	}
 
 
+
+
+
+
+
 	void registerPlayer()
 	{
 		string _ID = "Player"+ GetComponent<NetworkIdentity> ().netId;
 		transform.name = _ID;
 	}
 
+
+
+
+
+
 	void AssignRemoteLayer()
 	{
 		gameObject.layer = LayerMask.NameToLayer (remoteLayerName);
 	}
-		
+
+
+
+
+
+
 
 	void DisableComponenets()
 	{
@@ -95,6 +129,10 @@ public class PlayerSetup : NetworkBehaviour
 
 		}
 	}
+
+
+
+
 
 	void OnDisable()
 	{
