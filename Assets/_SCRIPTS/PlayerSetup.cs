@@ -26,6 +26,8 @@ public class PlayerSetup : NetworkBehaviour
 	[HideInInspector]
 	public GameObject playerUIinstance;
 
+
+
 	void Start()
 	{
 		
@@ -52,10 +54,10 @@ public class PlayerSetup : NetworkBehaviour
 			if(ui == null)
 				Debug.LogError("NO PLAYERUI PREFAB");
 			ui.SetController (GetComponent<PlayerController> ());
-			
+			GetComponent<PlayerManager>().Setup ();
 		}
 
-		GetComponent<PlayerManager>().Setup ();
+
 	}
 
 

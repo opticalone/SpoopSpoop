@@ -2116,7 +2116,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1783661683750868}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 288.68826, y: 7, z: -35.499165}
+  m_LocalPosition: {x: 328.2126, y: 36.29491, z: -119.22582}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4731190383500736}
@@ -2255,7 +2255,7 @@ Camera:
     height: 1
   near clip plane: 0.1
   far clip plane: 1000
-  field of view: 50
+  field of view: 60
   orthographic: 0
   orthographic size: 5
   m_Depth: 1
@@ -2362,7 +2362,7 @@ Animator:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1508359140294150}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: ab89f765afeddc24bae00939a0152589, type: 3}
   m_Controller: {fileID: 9100000, guid: 845f8fe9e50f56844a945216ceb2b3a9, type: 2}
   m_CullingMode: 0
@@ -2553,6 +2553,8 @@ MonoBehaviour:
   - {fileID: 114651872410508810}
   deathEffect: {fileID: 1774344814404578, guid: d0e8391c67142d04789cc75d9916a17b,
     type: 2}
+  spawnEffect: {fileID: 1335270897809476, guid: f0774447815ef20498f268e5e2c6fc89,
+    type: 2}
   disableGameObjectsOnDeath:
   - {fileID: 1839990789933672}
   - {fileID: 1224512971560878}
@@ -2578,6 +2580,7 @@ MonoBehaviour:
   playerGraphics: {fileID: 1839990789933672}
   playerUIprefab: {fileID: 1346965976756544, guid: 3930f10c9f32660499506d764b24247c,
     type: 2}
+  playerUIinstance: {fileID: 0}
 --- !u!124 &124123462712504950
 Behaviour:
   m_ObjectHideFlags: 1
@@ -2800,7 +2803,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 296.37592, y: -8.36116, z: -42.63501}
+  m_ConnectedAnchor: {x: 328.2126, y: 36.29491, z: -119.22582}
   serializedVersion: 2
   m_SecondaryAxis: {x: 0, y: 1, z: 0}
   m_XMotion: 2

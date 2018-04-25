@@ -3,6 +3,8 @@ using UnityEngine;
 using UnityEngine.Networking;
 using System.Collections;
 
+
+[RequireComponent(typeof(PlayerSetup))]
 public class PlayerManager : NetworkBehaviour 
 {
 
@@ -32,12 +34,37 @@ public class PlayerManager : NetworkBehaviour
 	private GameObject deathEffect;
 
 	[SerializeField]
+	private GameObject spawnEffect;
+
+	[SerializeField] 
 	private GameObject[] disableGameObjectsOnDeath;
 
 
+
+
+
+
+	// --- setup --- setup --- setup --- setup --- setup --- setup --- setup --- setup --- setup --- setup --- setup ---
+	//setup --- setup --- setup --- setup --- setup --- setup --- setup --- setup --- setup --- setup --- setup ---
 	public void Setup()
 	{
+		//cam switch
 
+		GameManager.instance.SetSceneCameraActive (true);
+			GetComponent<PlayerSetup> ().playerUIinstance.SetActive (false);
+	
+		CmdBrodcastNewPlayerSetup ();
+
+	}
+	[Command]
+	private void CmdBrodcastNewPlayerSetup()
+	{
+		RpcSetupPlayerOnAllClients ();
+	}
+
+	[ClientRpc]
+	private void RpcSetupPlayerOnAllClients()
+	{
 		wasEnabled = new bool[disableOnDeath.Length];
 		for (int i = 0; i < wasEnabled.Length; i++) 
 		{
@@ -45,8 +72,14 @@ public class PlayerManager : NetworkBehaviour
 		}
 
 		SetDefaults ();
-
 	}
+	//setup --- setup --- setup --- setup --- setup --- setup --- setup --- setup --- setup --- setup --- setup ---
+	// --- setup --- setup --- setup --- setup --- setup --- setup --- setup --- setup --- setup --- setup --- setup ---
+
+
+
+
+
 
 
 	void Update()
@@ -61,6 +94,12 @@ public class PlayerManager : NetworkBehaviour
 			RpctakeDamage (100);
 		}
 	}
+
+
+
+
+
+
 
 
 	[ClientRpc]
@@ -82,6 +121,18 @@ public class PlayerManager : NetworkBehaviour
 		}
 
 	}
+
+
+
+
+
+
+
+
+
+
+
+
 
 	private void Die()
 	{
@@ -109,27 +160,44 @@ public class PlayerManager : NetworkBehaviour
 		Destroy (_gfxInst, 10);
 		//Debug.Log (transform.name + " IS DEAD");
 
-		//cam switch
-		if (isLocalPlayer) 
-		{
-			GameManager.instance.SetSceneCameraActive (true);
-		}
-
-
 		StartCoroutine (Respawn ());
 
 	}
 
-	IEnumerator Respawn()
+
+
+
+
+
+
+	private	IEnumerator Respawn()
 	{
 		Debug.Log (GameManager.instance.matchSettings.respawnTime);
 		yield return new WaitForSeconds(GameManager.instance.matchSettings.respawnTime);
 
-		SetDefaults();
+
 		Transform _spawnPoint = NetworkManager.singleton.GetStartPosition();
 		transform.position = _spawnPoint.position;
 		transform.rotation = _spawnPoint.rotation;
+		//cam switch
+
+		GameManager.instance.SetSceneCameraActive (false);
+		GetComponent<PlayerSetup> ().playerUIinstance.SetActive (true);
+
+
+		SetDefaults();
 	}
+
+
+
+
+
+
+
+
+
+
+
 
 
 	public void SetDefaults()
@@ -158,7 +226,12 @@ public class PlayerManager : NetworkBehaviour
 		if (_col != null)
 		{
 			_col.enabled = true;
+			GetComponent<PlayerSetup> ().playerUIinstance.SetActive (true);
 		}
+		//create spawn effect
+		GameObject _gfxInst = (GameObject)Instantiate(spawnEffect, transform.position,Quaternion.identity);
+		Destroy (_gfxInst, 10f);
+
 
 	}
 }
