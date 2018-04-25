@@ -137,10 +137,14 @@ public class PlayerSetup : NetworkBehaviour
 
 	void OnDisable()
 	{
+		
 		Destroy (playerUIinstance);
-		//reenable cam
-		GameManager.instance.SetSceneCameraActive(true);
-		GameManager.UnRegisterPlayer (transform.name);
+		if (!isLocalPlayer) 
+		{
+			//reenable cam
+			GameManager.instance.SetSceneCameraActive (true);
+			GameManager.UnRegisterPlayer (transform.name);
+		}
 	}
 
 

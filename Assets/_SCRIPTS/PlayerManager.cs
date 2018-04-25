@@ -40,7 +40,7 @@ public class PlayerManager : NetworkBehaviour
 	private GameObject[] disableGameObjectsOnDeath;
 
 
-
+	private bool firstSetup = true;
 
 
 
@@ -48,11 +48,13 @@ public class PlayerManager : NetworkBehaviour
 	//setup --- setup --- setup --- setup --- setup --- setup --- setup --- setup --- setup --- setup --- setup ---
 	public void Setup()
 	{
-		//cam switch
+		if (isLocalPlayer) 
+		{
+			//cam switch
 
-		GameManager.instance.SetSceneCameraActive (true);
+			GameManager.instance.SetSceneCameraActive (true);
 			GetComponent<PlayerSetup> ().playerUIinstance.SetActive (false);
-	
+		}
 		CmdBrodcastNewPlayerSetup ();
 
 	}
@@ -65,12 +67,14 @@ public class PlayerManager : NetworkBehaviour
 	[ClientRpc]
 	private void RpcSetupPlayerOnAllClients()
 	{
-		wasEnabled = new bool[disableOnDeath.Length];
-		for (int i = 0; i < wasEnabled.Length; i++) 
+		if (firstSetup)
 		{
-			wasEnabled [i] = disableOnDeath [i].enabled;
+			wasEnabled = new bool[disableOnDeath.Length];
+			for (int i = 0; i < wasEnabled.Length; i++) {
+				wasEnabled [i] = disableOnDeath [i].enabled;
+			}
+			firstSetup = false;
 		}
-
 		SetDefaults ();
 	}
 	//setup --- setup --- setup --- setup --- setup --- setup --- setup --- setup --- setup --- setup --- setup ---
@@ -180,12 +184,13 @@ public class PlayerManager : NetworkBehaviour
 		transform.position = _spawnPoint.position;
 		transform.rotation = _spawnPoint.rotation;
 		//cam switch
-
+		yield return new WaitForSeconds(.1f);
 		GameManager.instance.SetSceneCameraActive (false);
 		GetComponent<PlayerSetup> ().playerUIinstance.SetActive (true);
 
 
-		SetDefaults();
+		Setup ();
+		Debug.Log (transform.name + " respawnerd");
 	}
 
 
