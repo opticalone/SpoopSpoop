@@ -791,7 +791,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mFlash: {fileID: 198078448681702968}
-  hitEffectPrefab: {fileID: 1976425750714694, guid: ec48c92cd4fd81a4899508a15aa39269,
+  hitEffectPrefab: {fileID: 1774344814404578, guid: d0e8391c67142d04789cc75d9916a17b,
     type: 2}
 --- !u!198 &198078448681702968
 ParticleSystem:

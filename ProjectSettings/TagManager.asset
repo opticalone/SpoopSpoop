@@ -7,6 +7,7 @@ TagManager:
   - ball
   - ball2
   - ball3
+  - Fire
   layers:
   - Default
   - TransparentFX
@@ -20,7 +21,7 @@ TagManager:
   - RemotePLayer
   - DontDraw
   - Weapon
-  - 
+  - CollidableEnv
   - 
   - 
   - 
