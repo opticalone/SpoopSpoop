@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour
 	{
 		if (sceneCamera = null) {return;}
 
-		sceneCamera.SetActive (isActive);
+		sceneCamera.SetActive(true);
 			
 	}
 

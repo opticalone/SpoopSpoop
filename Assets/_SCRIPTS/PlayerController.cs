@@ -53,25 +53,23 @@ public class PlayerController : MonoBehaviour
 	void Update()
 	{
 
-//		RaycastHit _hit;
-//
-//		if (Physics.Raycast (transform.position, Vector3.down, out _hit, 100f, enviormentmask)) {
-//			joint.targetPosition = new Vector3 (0f, -_hit.point.y, 0f);
-//		
-//		} 
-//		else 
-//		{
-//		
-//			joint.targetPosition = new Vector3 (0f, 0f, 0f);
-//		}
+		RaycastHit _hit;
+
+		if (Physics.Raycast (transform.position, Vector3.down, out _hit, 100f, enviormentmask)) {
+			joint.targetPosition = new Vector3 (0f, -_hit.point.y, 0f);
+		
+		} 
+		else 
+		{
+		
+			joint.targetPosition = new Vector3 (0f, 0f, 0f);
+		}
 
 
 
 		//Calc movement
-
 		float _xMove = Input.GetAxis("Horizontal");
 		float _zMove = Input.GetAxis("Vertical");
-
 		Vector3 _moveHoriz = transform.right * _xMove;
 		Vector3 _moveVert = transform.forward * _zMove;
 
@@ -124,7 +122,7 @@ public class PlayerController : MonoBehaviour
 			SetJointSettings (jointSpring);
 		}
 
-		thrusterFuelAmmount = Mathf.Clamp (thrusterFuelAmmount, 0, 6f);
+		thrusterFuelAmmount = Mathf.Clamp (thrusterFuelAmmount, 0, 2f);
 
 		//apply thruster
 

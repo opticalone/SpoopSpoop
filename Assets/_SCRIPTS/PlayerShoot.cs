@@ -2,7 +2,6 @@
 using UnityEngine.Networking;
 using UnityEngine;
 
-
 [RequireComponent(typeof(WeaponManager))]
 public class PlayerShoot : NetworkBehaviour 
 {
@@ -13,7 +12,9 @@ public class PlayerShoot : NetworkBehaviour
 
 	[SerializeField]
 	private Camera cam;
-
+	//private CameraShake camShake;
+	//public float camShakeTime = .5f;
+	//public float camShakeMag = 1f;
 	[SerializeField]
 	private LayerMask mask;
 
@@ -95,6 +96,8 @@ public class PlayerShoot : NetworkBehaviour
 		{
 			return;
 		}
+
+		//StartCoroutine(camShake.Shake (camShakeTime,camShakeMag));
 		//we are shooting, call on shoot method on server
 		CmdOnShoot ();
 		RaycastHit _hit;
