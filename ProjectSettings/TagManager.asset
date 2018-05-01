@@ -22,7 +22,7 @@ TagManager:
   - DontDraw
   - Weapon
   - CollidableEnv
-  - 
+  - Explodable wall
   - 
   - 
   - 
