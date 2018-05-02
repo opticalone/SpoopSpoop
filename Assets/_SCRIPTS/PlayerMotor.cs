@@ -55,10 +55,13 @@ public class PlayerMotor : MonoBehaviour
 	//run every physics itteraation
 	void FixedUpdate()
 	{
-		preformMovement ();
+		
 		preformRotato ();
 	}
-
+	void LateUpdate()
+	{
+		preformMovement ();
+	}
 
 	//preform movement based on velocity
 

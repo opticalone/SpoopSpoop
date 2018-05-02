@@ -26,7 +26,7 @@ GameObject:
   - component: {fileID: 54785290169698618}
   - component: {fileID: 65516986701478722}
   - component: {fileID: 114430751857110588}
-  - component: {fileID: 208140888201287884}
+  - component: {fileID: 208915349810447426}
   m_Layer: 0
   m_Name: Wall_Chunk_Tiny
   m_TagString: Untagged
@@ -40,8 +40,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1300733011091792}
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 49, y: -2, z: -8.5}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 49, y: -6, z: 0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -108,7 +108,7 @@ BoxCollider:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1300733011091792}
-  m_Material: {fileID: 13400000, guid: 1cdf89b49c96f3942999779932341835, type: 2}
+  m_Material: {fileID: 13400000, guid: 5d60553fac96af846a5a30fc594eb992, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -424,7 +424,7 @@ MonoBehaviour:
   m_selectedFaces: 
   m_SelectedEdges: []
   m_selectedTriangles: 
---- !u!208 &208140888201287884
+--- !u!208 &208915349810447426
 NavMeshObstacle:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}

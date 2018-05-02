@@ -43,9 +43,9 @@ public class PlayerSetup : NetworkBehaviour
 
 		else 
 		{
-
+			
 			//disable player graphics for local
-			SetLayerRecursively(playerGraphics, LayerMask.NameToLayer(dontDrawLayerName));
+			Util.SetLayerRecursively(playerGraphics, LayerMask.NameToLayer(dontDrawLayerName));
 			//create ui
 
 			playerUIinstance = Instantiate (playerUIprefab);
@@ -67,16 +67,6 @@ public class PlayerSetup : NetworkBehaviour
 
 
 
-	void SetLayerRecursively(GameObject obj, int newLayer)
-	{
-		obj.layer = newLayer;
-
-		foreach (Transform child in obj.transform)
-		{
-		
-			SetLayerRecursively (child.gameObject, newLayer);
-		}
-	}
 
 
 

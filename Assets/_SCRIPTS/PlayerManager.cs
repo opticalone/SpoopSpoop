@@ -22,7 +22,7 @@ public class PlayerManager : NetworkBehaviour
 
 	[SerializeField]
 	private int maxHealth = 100;
-
+	public Light flashlight;
 	[SyncVar]
 	private int currentHealth;
 
@@ -91,6 +91,12 @@ public class PlayerManager : NetworkBehaviour
 		if (!isLocalPlayer) 
 		{
 			return;
+		}
+		if (Input.GetKey(KeyCode.F)) {
+			flashlight.intensity = 7;
+
+		} else {
+			flashlight.intensity = 0;
 		}
 		if (Input.GetKeyDown (KeyCode.K)) 
 		{
