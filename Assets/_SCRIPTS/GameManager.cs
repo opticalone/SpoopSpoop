@@ -9,7 +9,8 @@ public class GameManager : MonoBehaviour
 
 	void Awake()
 	{
-		if (instance != null) {
+		if (instance != null) 
+		{
 		
 			Debug.LogError ("too many managerr");
 		} else {

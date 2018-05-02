@@ -6,6 +6,10 @@ using UnityEngine.Networking;
 public class PlayerSetup : NetworkBehaviour 
 { 
 
+
+
+
+
 	[SerializeField]
 	Behaviour[] componentToDisable;
 

@@ -864,6 +864,8 @@ GameObject:
   - component: {fileID: 95445498894660036}
   - component: {fileID: 195490108318536926}
   - component: {fileID: 114361133244043792}
+  - component: {fileID: 135014319992498146}
+  - component: {fileID: 54194375763374096}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -1159,7 +1161,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1797193213925348}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 31.375452, y: -6, z: -21.36573}
+  m_LocalPosition: {x: 31, y: -6, z: -21.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4539890943171928}
@@ -2075,6 +2077,21 @@ Transform:
   m_Father: {fileID: 4900319798366206}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &54194375763374096
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1797193213925348}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!95 &95445498894660036
 Animator:
   serializedVersion: 3
@@ -2153,9 +2170,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 342786f7043995d46861acb144f23079, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wanderRadius: 15
-  wanderTimer: 32.85
-  targetZone: {fileID: 0}
+  wanderRadius: 30
+  wanderTimer: 10
+  targetZone: {fileID: 135014319992498146}
+  target: {fileID: 0}
+--- !u!135 &135014319992498146
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1797193213925348}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 30
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!137 &137489267259034440
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
